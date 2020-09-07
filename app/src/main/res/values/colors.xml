@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#F9A825</color>-->
+    <!-- Light theme -->
+
+    <!-- Action bar and status bar -->
     <color name="colorPrimary">#FAFAFA</color>
     <color name="colorPrimaryDark">#EEEEEE</color>
+    <bool name="lightStatusBar">true</bool>
+
+    <!-- Accent -->
     <color name="colorAccent">#F9A825</color>
+
+    <!-- Background -->
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackgroundLight">#E0E0E0</color>
+    <color name="colorSwitchOnBackground">#0091EA</color>
+    <color name="colorSwitchOffBackground">#757575</color>
+
+    <!-- Text -->
+    <color name="titleTextColor">#000000</color>
+    <color name="textColor">#000000</color>
+    <color name="dialogTextColor">#101010</color>
+
 </resources>

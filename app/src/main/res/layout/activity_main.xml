@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -54,7 +55,7 @@
             android:paddingRight="20dp"
             android:switchTextAppearance="@style/AppTheme"
             android:text="Mask"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorPrimary"
             android:textColorHint="#FFFFFF"
             android:textSize="18sp"
             android:thumbTint="#FFFFFF"

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Mask Clock</string>
+    <string name="total_minutes">Minuti totali:</string>
+    <string name="delete">Eliminare?</string>
+    <string name="text_delete">Sei sicuro di voler eliminare questo tempo?</string>
+    <string name="cancel_button">Annulla</string>
+    <string name="ok_button">Ok</string>
+    <string name="time_expired">Tempo esaurito!</string>
+    <string name="delete_all_times">passati! Dovresti cambiare il filtro della tua mascherina!
+        Vuoi eliminare tutti i tempi salvati?</string>
+    <string name="hours">ore</string>
+    <string name="hour">ora</string>
+    <string name="and">e</string>
+    <string name="minutes">minuti</string>
+    <string name="minute">minuto</string>
+
+</resources>

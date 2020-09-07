@@ -1,15 +1,17 @@
 package com.example.maskclock;
 
-import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +29,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private int minuteOn, minuteOff;
     private int dayOn, dayOff;
     private Switch maskOnOff;
-    private boolean switchState;
 
     // You need to change the refill of the mask after 150-200 hours of use
     // Here this time is indicated in minutes
@@ -51,93 +51,73 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Switch
-        maskOnOff = (Switch) findViewById(R.id.switch2);
+        maskOnOff = findViewById(R.id.switch2);
 
         loadData();
         loadTimeOn();
-        Log.v("hourOn", "" + hourOn);
-        Log.v("minuteOn", "" + minuteOn);
-        Log.v("dayOn", "" + dayOn);
-        Toast.makeText(getApplicationContext(), "Total minutes:" + totalMinutes, Toast.LENGTH_LONG).show();
+
+        Toast.makeText(getApplicationContext(), getString(R.string.total_minutes) + " " + totalMinutes, Toast.LENGTH_LONG).show();
 
         displayWarningTime();
 
         // Set the ListView
-        final ListView saved = (ListView) findViewById(R.id.times);
+        final ListView saved = findViewById(R.id.times);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         saved.setAdapter(arrayAdapter);
 
 
         final TimePickerDialog timePickerDialog;
-        FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.addTimes);
+        FloatingActionButton btnAdd = findViewById(R.id.addTimes);
 
         // Switch
-        //maskOnOff = (Switch) findViewById(R.id.switch2);
-        //SharedPreferences sharedPrefs = getSharedPreferences("current switch state", MODE_PRIVATE);
-        //maskOnOff.setChecked(sharedPrefs.getBoolean("switch state", false));
-        //maskOnOff.setChecked(switchState);
-
+        // Change the background
         if(maskOnOff.isChecked())
-            maskOnOff.setBackgroundColor(Color.parseColor("#0091EA"));
+            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOnBackground));
         else
-            maskOnOff.setBackgroundColor(Color.parseColor("#757575"));
+            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOffBackground));
 
+        // Calculate the time on switch state change
         maskOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int elapsedMinutes = 0;
+                int elapsedMinutes;
 
                 // If it is checked, save current day, hours and minutes
                 if(maskOnOff.isChecked()) {
-                    maskOnOff.setBackgroundColor(Color.parseColor("#0091EA"));
+                    maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOnBackground));
 
                     hourOn = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                     minuteOn = Calendar.getInstance().get(Calendar.MINUTE);
                     dayOn = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
                     saveTimeOn();
-                    /*SharedPreferences.Editor editor = getSharedPreferences("current switch state", MODE_PRIVATE).edit();
-                    editor.putBoolean("switch state", true);
-                    editor.commit();*/
                 }
                 // When it is unchecked calculate the difference between the current time and the previous
                 else {
-                    maskOnOff.setBackgroundColor(Color.parseColor("#757575"));
+                    maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOffBackground));
 
                     hourOff = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                     minuteOff = Calendar.getInstance().get(Calendar.MINUTE);
                     dayOff = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
-                    //loadTimeOn();
-
                     // If dayOn is the last day of the week, and dayOff is the first day of the week
                     if(dayOff != dayOn)
                         dayOff = dayOn + 1;
 
-                    elapsedMinutes = ((hourOff * 60) + (dayOff * 24 * 60) + minuteOff) - ((hourOn * 60) + (dayOn * 24 * 60) + minuteOn);
 
+                    elapsedMinutes = ((hourOff * 60) + (dayOff * 24 * 60) + minuteOff) - ((hourOn * 60) + (dayOn * 24 * 60) + minuteOn);
 
                     int hour = elapsedMinutes / 60;
                     int minute = elapsedMinutes % 60;
 
-                    Log.v("elapsedMinutes", "" + elapsedMinutes);
-                    Log.v("hourOn", "" + hourOn);
-                    Log.v("minuteOn", "" + minuteOn);
-                    Log.v("dayOn", "" + dayOn);
-                    Log.v("hourOff", "" + hourOff);
-                    Log.v("minuteOff", "" + minuteOff);
-                    Log.v("dayOff", "" + dayOff);
-
-                    items.add(hour + " hours and " + minute + " minutes");
+                    items.add(hour + " " + ((hour == 1) ? getString(R.string.hour) : getString(R.string.hours)) + " " + getString(R.string.and) + " " + minute + " " + ((minute == 1) ? getString(R.string.minute) : getString(R.string.minutes)));
                     minutesForItems.add((hour * 60) + minute);
 
                     totalMinutes += (hour * 60) + minute;
                     arrayAdapter.notifyDataSetChanged();
 
                     saveData();
-                    /*SharedPreferences.Editor editor = getSharedPreferences("current switch state", MODE_PRIVATE).edit();
-                    editor.putBoolean("switch state", false);
-                    editor.commit();*/
 
                     displayWarningTime();
                 }
@@ -146,10 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Add items
-        timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        timePickerDialog = new TimePickerDialog(MainActivity.this, R.style.TimePickerDialog, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                items.add(hourOfDay + " hours and " + minute + " minutes");
+                items.add(hourOfDay + " " + ((hourOfDay == 1) ? getString(R.string.hour) : getString(R.string.hours)) + " " + getString(R.string.and) + " " + minute + " " + ((minute == 1) ? getString(R.string.minute) : getString(R.string.minutes)));
                 minutesForItems.add((hourOfDay * 60) + minute);
 
                 totalMinutes += (hourOfDay * 60) + minute;
@@ -159,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
                 displayWarningTime();
             }
-        }, /*Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE)*/ 0, 0, true);
+        }, 0, 0, true);
 
 
         // Show the time picker
@@ -176,14 +156,14 @@ public class MainActivity extends AppCompatActivity {
         saved.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
 
-                alertDialog.setTitle("Delete?");
-                alertDialog.setMessage("Are you sure you want to delete this time?");
+                alertDialog.setTitle(getString(R.string.delete));
+                alertDialog.setMessage(getString(R.string.text_delete));
 
                 final int positionToRemove = position;
-                alertDialog.setNegativeButton("Cancel", null);
-                alertDialog.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                alertDialog.setNegativeButton(getString(R.string.cancel_button), null);
+                alertDialog.setPositiveButton(getString(R.string.ok_button), new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         items.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
@@ -209,18 +189,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Create the theme selector button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.light_dark_theme_button, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // Handle the theme selector button activities
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.theme_selector_button) {
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            else
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     // Display an alert that tells you to change the refill
     // It also allows you to delete all the times --> You changed your refill
     // Or continue --> You didn't change your refill
     private void displayWarningTime() {
         if(totalMinutes >= TIME_THRESHOLD) {
-            AlertDialog.Builder needToChangeRefillWarning = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder needToChangeRefillWarning = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
 
-            needToChangeRefillWarning.setTitle("Time Expired!");
-            needToChangeRefillWarning.setMessage(totalMinutes + " minutes elapsed! You should change the refill of your mask!\nDo you want to delete all the times?");
+            needToChangeRefillWarning.setTitle(getString(R.string.time_expired));
+            needToChangeRefillWarning.setMessage((totalMinutes / 60) + " " + getString(R.string.hours) + " " + getString(R.string.and) + " " + (totalMinutes % 60) + " " + ((totalMinutes % 60 == 1) ? getString(R.string.minute) : getString(R.string.minutes)) + " " + getString(R.string.delete_all_times));
 
-            needToChangeRefillWarning.setNegativeButton("Cancel", null);
-            needToChangeRefillWarning.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+            needToChangeRefillWarning.setNegativeButton(getString(R.string.cancel_button), null);
+            needToChangeRefillWarning.setPositiveButton(getString(R.string.ok_button), new AlertDialog.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     items.clear();
                     minutesForItems.clear();
@@ -253,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("minutes", json);
         editor.apply();
 
-        // Save the time
+        // Save the total time
         SharedPreferences sharedPreferencesTime = getSharedPreferences("total time", MODE_PRIVATE);
         editor = sharedPreferencesTime.edit();
         editor.putInt("total minutes", totalMinutes);
@@ -264,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("switch state", maskOnOff.isChecked());
         editor.apply();
     }
+
 
     // Load the informations (list and total time)
     private void loadData() {
@@ -289,16 +296,12 @@ public class MainActivity extends AppCompatActivity {
         totalMinutes = sharedPreferencesTime.getInt("total minutes", 0);
 
         // Load the switch state
-        //SharedPreferences sharedPreferencesSwitch = getSharedPreferences("current switch state", MODE_PRIVATE);
-        //switchState = sharedPreferencesSwitch.getBoolean("switch state", false);
-        //Log.v("Switch", "" + switchState);
-        //maskOnOff.setChecked(switchState);
-
         SharedPreferences sharedPreferencesSwitch = getSharedPreferences("current switch state", MODE_PRIVATE);
         maskOnOff.setChecked(sharedPreferencesSwitch.getBoolean("switch state", false));
     }
 
 
+    // Save informations about when the switch is turned to ON
     private void saveTimeOn() {
         // Save the hour
         SharedPreferences sharedPreferences = getSharedPreferences("current hour", MODE_PRIVATE);
@@ -323,11 +326,10 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         editor.putBoolean("switch state", maskOnOff.isChecked());
         editor.apply();
-        /*editor = getSharedPreferences("current switch state", MODE_PRIVATE).edit();
-        editor.putBoolean("switch state", maskOnOff.isChecked());
-        editor.commit();*/
     }
 
+
+    // Load informations about when the switch is turned to ON
     private void loadTimeOn() {
         // Load the hour
         SharedPreferences sharedPreferencesHour = getSharedPreferences("current hour", MODE_PRIVATE);
@@ -340,10 +342,6 @@ public class MainActivity extends AppCompatActivity {
         // Load the day
         SharedPreferences sharedPreferencesDay = getSharedPreferences("current day", MODE_PRIVATE);
         dayOn = sharedPreferencesDay.getInt("day", 0);
-
-        // Load the switch state
-        //sharedPreferences = getSharedPreferences("current switch state", MODE_PRIVATE);
-        //switchState = sharedPreferences.getBoolean("switch state", false);
     }
 
 }
