@@ -2,7 +2,7 @@
 
 This is a little Android application for count how many hours I wore my mask and when I need to change the filter.
 
-In particular I have a mask with a refill that can be used for 150-200 hours. So the application advise when the refill reach that time of usage.
+In particular I have a mask with a refill that can be used for 150-200 hours. So the application warns when the refill reach that time of usage.
 
 ### Usage
 
@@ -12,7 +12,7 @@ Mask Clock can be used in two ways:
    
    - First you can turn on the switch when you start using the mask
    
-   - Then, when you stop using the mask you can turn off the switch and Mask Clock automatically calculate the elapsed time
+   - Then, when you stop using the mask you can turn off the switch and Mask Clock automatically calculates the elapsed time
 
 2. The manual way
    
@@ -28,8 +28,7 @@ Mask Clock can be used in two ways:
 
 
 
+
 ### Record
 
 ![untitled.gif](https://github.com/leofracca/mask_clock/blob/master/docs/untitled.gif)
-
-
