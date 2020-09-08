@@ -23,7 +23,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkTheme();
-
 
         // Switch
         maskOnOff = findViewById(R.id.switch2);
@@ -61,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         loadData();
         loadTimeOn();
 
-        Toast.makeText(getApplicationContext(), getString(R.string.total_minutes) + " " + totalMinutes, Toast.LENGTH_LONG).show();
+        int tHours = totalMinutes / 60;
+        int tMinutes = totalMinutes % 60;
+
+        Toast.makeText(getApplicationContext(), tHours + " " + ((tHours == 1) ? getString(R.string.hour) : getString(R.string.hours)) + " " + getString(R.string.and) + " " + tMinutes + " " + ((tMinutes == 1) ? getString(R.string.minute) : getString(R.string.minutes)), Toast.LENGTH_SHORT).show();
 
         displayWarningTime();
 
@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 timePickerDialog.show();
             }
         });
@@ -184,28 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
-
-        //Toast.makeText(getApplicationContext(), "You wear your mask for " + hour + " hours and " + minute + " minutes", Toast.LENGTH_LONG).show();
-    }
-
-
-    // Set the theme of the application like the system theme
-    private void checkTheme() {
-        Configuration configuration = new Configuration();
-        int currentNightMode = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        switch (currentNightMode) {
-            case Configuration.UI_MODE_NIGHT_NO:
-                // Night mode is not active, we're using the light theme
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                // Night mode is active, we're using dark theme
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-        }
     }
 
 
@@ -216,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    
     // Handle the theme selector button activities
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -227,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
             else
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            //finish();
         }
 
         return super.onOptionsItemSelected(item);
