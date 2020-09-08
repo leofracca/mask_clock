@@ -7,6 +7,9 @@
     <color name="colorPrimaryDark">#EEEEEE</color>
     <bool name="lightStatusBar">true</bool>
 
+    <!-- Navigation bar -->
+    <bool name="lightNavigationBar">true</bool>
+
     <!-- Accent -->
     <color name="colorAccent">#F9A825</color>
 

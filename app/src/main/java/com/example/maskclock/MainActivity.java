@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    
+
     // Handle the theme selector button activities
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
