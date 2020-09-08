@@ -22,9 +22,9 @@ Mask Clock can be used in two ways:
 
 | **Homepage**                                                      | **Manual Selector**                                        | **Auto Selector (Switch ON)**                             |
 |:-----------------------------------------------------------------:|:----------------------------------------------------------:|:---------------------------------------------------------:|
-| ![text](/home/leonardo/mask_clock/docs/Screenshot_1599578674.png) | ![text](/home/leonardo/Desktop/Screenshot_1599578755.png)) | ![text](/home/leonardo/Desktop/Screenshot_1599578767.png) |
+| ![screen1](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578674.png) | ![screen2](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578755.png) | ![screen3](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578767.png) |
 | **Auto Selector (Switch ON) (Dark theme)**                        | **Time Expired (Dark theme)**                              | **Delete Item (Dark theme)**                              |
-| ![text](/home/leonardo/Desktop/Screenshot_1599578784.png)         | ![text](/home/leonardo/Desktop/Screenshot_1599579031.png)  | ![ŧext](/home/leonardo/Desktop/Screenshot_1599581551.png) |
+| ![screen4](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578784.png)         | ![screen5](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599579031.png)  | ![screen6](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599581551.png) |
 
 
 
