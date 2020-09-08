@@ -30,6 +30,6 @@ Mask Clock can be used in two ways:
 
 ### Record
 
-![untitled.gif](/home/leonardo/Desktop/untitled.gif)
+![untitled.gif](https://github.com/leofracca/mask_clock/blob/master/docs/untitled.gif)
 
 
