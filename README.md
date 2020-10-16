@@ -17,6 +17,11 @@ Mask Clock can be used in two ways:
 2. The manual way
    
    - If you forget to turn on the switch when you start using the mask, you can insert manually the elapsed time
+   
+### Supported languages
+
+- English
+- Italiano
 
 ### Screenshots
 
