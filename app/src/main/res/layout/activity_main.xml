@@ -17,7 +17,6 @@
             android:layout_height="match_parent">
 
 
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addTimes"
                 android:layout_width="wrap_content"
@@ -54,10 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#757575"
-            android:paddingLeft="65dp"
-            android:paddingRight="20dp"
+            android:paddingStart="65dp"
+            android:paddingEnd="20dp"
             android:switchTextAppearance="@style/AppTheme"
-            android:text="Mask"
+            android:text="@string/mask"
             android:textColor="@color/colorPrimary"
             android:textColorHint="#FFFFFF"
             android:textSize="18sp"
@@ -65,6 +64,7 @@
             android:trackTint="#FFFFFF" />
 
     </RelativeLayout>
+
 
 
 </RelativeLayout>

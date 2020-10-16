@@ -20,7 +20,7 @@
         <item name="android:textColor">@color/textColor</item>
 
         <!-- Animations -->
-        <item name="android:windowAnimationStyle">@style/WindowAnimations</item>
+        <!--<item name="android:windowAnimationStyle">@style/WindowAnimations</item>-->
 
         <!-- Dark theme -->
         <item name="android:forceDarkAllowed">true</item>

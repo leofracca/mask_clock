@@ -12,6 +12,7 @@
 
     <!-- Accent -->
     <color name="colorAccent">#F9A825</color>
+    <color name="contrastItem">#FFFFFF</color>
 
     <!-- Background -->
     <color name="colorBackground">#252525</color>

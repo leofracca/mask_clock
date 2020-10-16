@@ -1,5 +1,8 @@
 <resources>
+
+    <!-- Main -->
     <string name="app_name">Mask Clock</string>
+    <string name="mask">Mascherina</string>
     <string name="total_minutes">Minuti totali:</string>
     <string name="delete">Eliminare?</string>
     <string name="text_delete">Sei sicuro di voler eliminare questo tempo?</string>
@@ -13,5 +16,34 @@
     <string name="and">e</string>
     <string name="minutes">minuti</string>
     <string name="minute">minuto</string>
+    <string name="action_settings">Impostazioni</string>
+
+    <!-- Impostazioni -->
+    <string name="settings">Impostazioni</string>
+    <string name="repeat">Ripeti ogni</string>
+    <string-array name="minutes">
+        <item>10 minuti</item>
+        <item>15 minuti</item>
+        <item>20 minuti</item>
+        <item>30 minuti</item>
+        <item>1 ora</item>
+        <item>2 ore</item>
+    </string-array>
+    <string name="default_alarm">20 minuti</string>
+    <string-array name="minutes_value">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+    </string-array>
+    <string name="default_alarm_value">20</string>
+
+    <!-- Notifications -->
+    <string name="title_minutes">minuti passati!</string>
+    <string name="title_one_hour">ora passata!</string>
+    <string name="title_hours">ore passate!</string>
+    <string name="text">Stai ancora indossando la mascherina?</string>
 
 </resources>

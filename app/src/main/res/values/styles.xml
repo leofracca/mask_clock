@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">@bool/lightStatusBar</item>
+        <item name="colorControlNormal">@color/contrastItem</item>
 
         <!-- Navigation bar -->
         <item name="android:navigationBarColor">@color/colorPrimary</item>
@@ -17,7 +18,7 @@
         <item name="android:textColor">@color/textColor</item>
 
         <!-- Animations -->
-        <item name="android:windowAnimationStyle">@style/WindowAnimations</item>
+        <!--<item name="android:windowAnimationStyle">@style/WindowAnimations</item>-->
 
     </style>
 
@@ -54,9 +55,9 @@
 
 
     <!-- Animations -->
-    <style name="WindowAnimations">
+    <!--<style name="WindowAnimations">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
-    </style>
+    </style>-->
 
 </resources>

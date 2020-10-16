@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mask_Clock.iml" filepath="$PROJECT_DIR$/.idea/modules/Mask_Clock.iml" group="Mask_Clock" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Mask Clock/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mask_Clock.iml" filepath="$PROJECT_DIR$/.idea/modules/Mask_Clock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mask_Clock.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mask_Clock.app.iml" />
     </modules>
   </component>
 </project>
