@@ -2,7 +2,7 @@
 
 This is a little Android application for count how many hours I wore my mask and when I need to change the filter.
 
-[In particular I have a mask with a refill that can be used for 150-200 hours. So the application warns when the refill reaches that time of usage.]
+[In particular I have a mask with a refill that can be used for 150 hours. So the application warns when the refill reaches that time of usage.]
 
 
 ### Usage
