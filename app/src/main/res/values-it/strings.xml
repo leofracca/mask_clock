@@ -19,6 +19,9 @@
     <string name="action_settings">Impostazioni</string>
 
     <!-- Impostazioni -->
+    <string name="notifications_group_title">Notifiche</string>
+    <string name="theme_group_title">Tema</string>
+    <string name="info_group_title">Informazioni</string>
     <string name="settings">Impostazioni</string>
     <string name="repeat">Ripeti ogni</string>
     <string-array name="minutes">
@@ -39,6 +42,21 @@
         <item>120</item>
     </string-array>
     <string name="default_alarm_value">20</string>
+    <string name="theme_title">Seleziona tema</string>
+    <string-array name="themes">
+        <item>Chiaro</item>
+        <item>Scuro</item>
+        <item>Default del Sistema</item>
+    </string-array>
+    <string-array name="themes_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system_default</item>
+    </string-array>
+    <string name="default_theme">Default del sistema</string>
+    <string name="default_theme_value">system_default</string>
+    <string name="version">Versione</string>
+    <string name="stay_safe_out_there">Stai al sicuro là fuori e indossa la mascherina!</string>
 
     <!-- Notifications -->
     <string name="title_minutes">minuti passati!</string>

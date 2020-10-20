@@ -55,19 +55,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Get the shared preferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Theme choice
+        final String[] themeValues = getResources().getStringArray(R.array.themes_values);
+        String selected = sharedPref.getString(SettingsActivity.KEY_PREF_THEME_CHOICE, getString(R.string.default_theme_value));
+
+        if (selected.equals(themeValues[0]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        if (selected.equals(themeValues[1]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        if (selected.equals(themeValues[2]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        final Boolean switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALARM_SWITCH, false);
+        final String minutesPrefAsString = sharedPref.getString(SettingsActivity.KEY_PREF_ALARM_TIME, "0");
+        final int minutesPref = Integer.parseInt(minutesPrefAsString) * 60;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         createNotificationChannel();
-
-        // Get the alarm switch state (Settings activity)
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        final Boolean switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALARM_SWITCH, false);
-        //Log.d("minutesSwitch", switchPref.toString());
-        final String minutesPrefAsString = sharedPref.getString(SettingsActivity.KEY_PREF_ALARM_TIME, "0");
-        final int minutesPref = Integer.parseInt(minutesPrefAsString) * 60;
-        //Log.d("minutesString", minutesPrefAsString);
-        //Log.d("minutesInt", String.valueOf(minutesPref));
 
 
         // Switch
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     alarmManager.cancel(pendingIntent);
             }
             else
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref, minutesPref, pendingIntent);
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref * 1000, minutesPref * 1000, pendingIntent);
         }
         else
             maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOffBackground));
@@ -132,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     // If the alarm switch (in settings activity) is set to true,
                     // then the app must send a notification every minutesPref
                     if(switchPref) {
-                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref, minutesPref, pendingIntent);
+                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref * 1000, minutesPref * 1000, pendingIntent);
                     }
 
                     saveTimeOn();
@@ -259,17 +268,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
-        // Theme button clicked
-        if(id == R.id.theme_selector_button) {
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            else
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            //finish();
-        }
 
         // Settings button clicked
         if (id == R.id.action_settings) {

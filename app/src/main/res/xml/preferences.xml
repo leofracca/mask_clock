@@ -2,18 +2,49 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreference
-        android:key="switch_alarm"
-        android:summary="The app will send you a notification after the minutes you have chosen"
-        android:icon="@drawable/ic_baseline_notifications_active_24_alpha"
-        android:title="Alarm" />
+    <!-- Notifications category -->
+    <PreferenceCategory
+        app:key="notifications"
+        app:title="@string/notifications_group_title">
 
-    <ListPreference
-        android:dependency="switch_alarm"
-        android:key="time_alarm"
-        android:title="@string/repeat"
-        android:entries="@array/minutes"
-        android:entryValues="@array/minutes_value"
-        android:defaultValue="@string/default_alarm_value"
-        app:useSimpleSummaryProvider="true"/>
+        <SwitchPreference
+            android:key="switch_alarm"
+            android:summary="The app will send you a notification after the minutes you have chosen"
+            android:icon="@drawable/ic_baseline_notifications_active_24_alpha"
+            android:title="Alarm" />
+
+        <ListPreference
+            android:dependency="switch_alarm"
+            android:key="time_alarm"
+            android:title="@string/repeat"
+            android:entries="@array/minutes"
+            android:entryValues="@array/minutes_value"
+            android:defaultValue="@string/default_alarm_value"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+
+    <!-- Theme category -->
+    <PreferenceCategory
+        app:key="theme_choice"
+        app:title="@string/theme_group_title">
+
+        <ListPreference
+            android:key="theme_selection"
+            android:title="@string/theme_title"
+            android:icon="@drawable/ic_baseline_brightness_6_24"
+            android:entries="@array/themes"
+            android:entryValues="@array/themes_values"
+            android:defaultValue="@string/default_theme_value"/>
+    </PreferenceCategory>
+
+    <!-- Info -->
+    <PreferenceCategory
+        app:key="info"
+        app:title="@string/info_group_title">
+
+        <Preference
+            app:key="informations"
+            app:title="Version"
+            android:icon="@drawable/ic_baseline_info_24"/>
+    </PreferenceCategory>
 </PreferenceScreen>
