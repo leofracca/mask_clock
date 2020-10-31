@@ -39,3 +39,9 @@ Mask Clock can be used in two ways:
   <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174405.png' width='30%'/>
   <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174713.png' width='30%'/>
 </p>
+
+
+### About
+
+This app was made during my free time.
+I made it because when I bought my new face mask I didn't know how to count the elapsed hours with the same filter and keeping track of that.
