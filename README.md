@@ -1,6 +1,9 @@
 # Mask Clock
 
 An open source Android application for counting how many hours I wore my mask and when I need to change the filter.
+<p align='center'>
+  <a href='https://github.com/leofracca/mask_clock/blob/master/LICENSE'><img src='https://img.shields.io/badge/license-GPL-blue'/></a>
+</p>
 
 [In particular I have a mask with a refill that can be used for 150 hours. So the application warns when the refill reaches that time of usage.]
 
@@ -28,14 +31,11 @@ Mask Clock can be used in two ways:
 
 ### Screenshots
 
-| **Homepage**                                                      | **Manual Selector**                                        | **Auto Selector (Switch ON)**                             |
-|:-----------------------------------------------------------------:|:----------------------------------------------------------:|:---------------------------------------------------------:|
-| ![screen1](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578674.png) | ![screen2](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578755.png) | ![screen3](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578767.png) |
-| **Auto Selector (Switch ON) (Dark theme)**                        | **Time Expired (Dark theme)**                              | **Delete Item (Dark theme)**                              |
-| ![screen4](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599578784.png)         | ![screen5](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599579031.png)  | ![screen6](https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_1599581551.png) |
-
-
-
-### Record
-
-![untitled.gif](https://github.com/leofracca/mask_clock/blob/master/docs/untitled.gif)
+<p align='center'>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174055.png' width='30%'/>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174222.png' width='30%'/>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174233.png' width='30%'/>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174343.png' width='30%'/>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174405.png' width='30%'/>
+  <img src='https://github.com/leofracca/mask_clock/blob/master/docs/Screenshot_20201031_174713.png' width='30%'/>
+</p>
