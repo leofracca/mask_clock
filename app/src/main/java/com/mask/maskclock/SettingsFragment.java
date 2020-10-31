@@ -22,7 +22,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference preference) {
                 if (easterEgg == 7) {
                     Toast.makeText(getActivity(), getString(R.string.stay_safe_out_there), Toast.LENGTH_LONG).show();
-                    easterEgg = 0;
+                    easterEgg = 1;
                 }
                 else
                     easterEgg++;

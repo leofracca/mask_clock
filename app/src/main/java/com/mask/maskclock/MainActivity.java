@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
     // Notification channel ID
     public static final String CHANNEL_ID = "alarmTime";
 
+    // For sending the notification every minutesPref minutes
+    public Intent intent;
+    public static PendingIntent pendingIntent;
+    public static AlarmManager alarmManager;
+
     private ArrayAdapter arrayAdapter;
     private ArrayList<String> items;
     private ArrayList<Integer> minutesForItems;
@@ -53,14 +58,25 @@ public class MainActivity extends AppCompatActivity {
     // Here this time is indicated in minutes
     private final int TIME_THRESHOLD = 150 * 60;
 
+    private SharedPreferences sharedPref;
+
+    // Theme choice
+    private String[] themeValues;
+    private String selected;
+
+    private Boolean switchPref;
+    public static String minutesPrefAsString;
+    public static int minutesPref;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Get the shared preferences
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Theme choice
-        final String[] themeValues = getResources().getStringArray(R.array.themes_values);
-        String selected = sharedPref.getString(SettingsActivity.KEY_PREF_THEME_CHOICE, getString(R.string.default_theme_value));
+        themeValues = getResources().getStringArray(R.array.themes_values);
+        selected = sharedPref.getString(SettingsActivity.KEY_PREF_THEME_CHOICE, getString(R.string.default_theme_value));
 
         if (selected.equals(themeValues[0]))
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -69,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
         if (selected.equals(themeValues[2]))
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 
-        final Boolean switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALARM_SWITCH, false);
-        final String minutesPrefAsString = sharedPref.getString(SettingsActivity.KEY_PREF_ALARM_TIME, "0");
-        final int minutesPref = Integer.parseInt(minutesPrefAsString) * 60;
+        switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALARM_SWITCH, false);
+        minutesPrefAsString = sharedPref.getString(SettingsActivity.KEY_PREF_ALARM_TIME, "0");
+        minutesPref = Integer.parseInt(minutesPrefAsString) * 60;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -102,27 +118,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton btnAdd = findViewById(R.id.addTimes);
 
         // Notification alarm
-        Intent intent = new Intent(MainActivity.this, AlertDetails.class);
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-        // Send the notification every minutesPref minutes
-        final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        // Switch
-        // Change the background
-        if(maskOnOff.isChecked()) {
-            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOnBackground));
-
-            if(!switchPref) {
-                // Cancel the alarm manager -> it won't send notifications no more
-                if (alarmManager != null)
-                    alarmManager.cancel(pendingIntent);
-            }
-            else
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref * 1000, minutesPref * 1000, pendingIntent);
-        }
-        else
-            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOffBackground));
+        intent = new Intent(MainActivity.this, AlertDetails.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
         // Calculate the time on switch state change
         maskOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -141,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     // If the alarm switch (in settings activity) is set to true,
                     // then the app must send a notification every minutesPref
                     if(switchPref) {
+                        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + minutesPref * 1000, minutesPref * 1000, pendingIntent);
                     }
 
@@ -243,6 +241,37 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get the shared preferences
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Theme choice
+        themeValues = getResources().getStringArray(R.array.themes_values);
+        selected = sharedPref.getString(SettingsActivity.KEY_PREF_THEME_CHOICE, getString(R.string.default_theme_value));
+
+        if (selected.equals(themeValues[0]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        if (selected.equals(themeValues[1]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        if (selected.equals(themeValues[2]))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALARM_SWITCH, false);
+        minutesPrefAsString = sharedPref.getString(SettingsActivity.KEY_PREF_ALARM_TIME, "0");
+        minutesPref = Integer.parseInt(minutesPrefAsString) * 60;
+
+        // Change the background of the switch
+        if (maskOnOff.isChecked())
+            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOnBackground));
+        else
+            maskOnOff.setBackgroundColor(getResources().getColor(R.color.colorSwitchOffBackground));
+    }
+
+
+    // Create the notification channel
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Alarm Time Elapsed";
@@ -408,5 +437,4 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferencesDay = getSharedPreferences("current day", MODE_PRIVATE);
         dayOn = sharedPreferencesDay.getInt("day", 0);
     }
-
 }
