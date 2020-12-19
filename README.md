@@ -1,9 +1,10 @@
 # Mask Clock
 
 An open source Android application for counting how many hours I wore my mask and when I need to change the filter.
-<p align='center'>
-  <a href='https://github.com/leofracca/mask_clock/blob/master/LICENSE'><img src='https://img.shields.io/badge/license-GPL-blue'/></a>
+<p align="center">
+  <img src="https://img.shields.io/github/license/leofracca/mask_clock?style=for-the-badge" />
 </p>
+
 
 [In particular I have a mask with a refill that can be used for 150 hours. So the application warns when the refill reaches that time of usage.]
 
